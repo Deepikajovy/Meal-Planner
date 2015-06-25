@@ -38,22 +38,11 @@ namespace Backend.Controllers
         [AcceptVerbs("GET")]
         public List<Ingredient> GetShoppingList()
         {
-            var l = new List<Ingredient>()
-            {
-                new Ingredient(){Name = "Pasta", Measurement = "grams",Quantity=10},
-                 new Ingredient(){Name = "Pasta", Measurement = "grams", Quantity=100},
-                new Ingredient(){Name = "Not Pasta", Measurement = "grams",Quantity=420},
-                 new Ingredient(){Name = "Not Pasta", Measurement = "grams", Quantity=69}
-            };
-            var s = new List<Meal>()
-            {
-                new Meal() {Name = "lasagne", Ingredients = l},
-           
-            }; 
-        
-
+           var currentUser = UserManger.FindById(User.Identity.GetUserId());
+           var currentUserMealPlan =  db.MealPlans.Where(w => w.User == currentUser).FirstOrDefault();
+             
             List<Ingredient> listofIngredients = new List<Ingredient>();
-            foreach (var meal in s)
+            foreach (var meal in currentUserMealPlan.Meals)
             {
                 foreach (var Ing in meal.Ingredients)
                 {

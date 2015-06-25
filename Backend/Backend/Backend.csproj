@@ -235,6 +235,14 @@
     <Compile Include="Migrations\201506252201185_virt_ing_list.Designer.cs">
       <DependentUpon>201506252201185_virt_ing_list.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506252255250_dropped_fro_key.cs" />
+    <Compile Include="Migrations\201506252255250_dropped_fro_key.Designer.cs">
+      <DependentUpon>201506252255250_dropped_fro_key.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506252258443_many-to-many-meal.cs" />
+    <Compile Include="Migrations\201506252258443_many-to-many-meal.Designer.cs">
+      <DependentUpon>201506252258443_many-to-many-meal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -331,6 +339,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506252201185_virt_ing_list.resx">
       <DependentUpon>201506252201185_virt_ing_list.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506252255250_dropped_fro_key.resx">
+      <DependentUpon>201506252255250_dropped_fro_key.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506252258443_many-to-many-meal.resx">
+      <DependentUpon>201506252258443_many-to-many-meal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

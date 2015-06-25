@@ -10,6 +10,6 @@ namespace Backend.Models
         public int Id { get; set; }
         public ApplicationUser User { get; set; }
         public string Name { get; set; }
-        public List<Meal> Meals { get; set; }
+        public virtual ICollection<Meal> Meals { get; set; }
     }
 }
