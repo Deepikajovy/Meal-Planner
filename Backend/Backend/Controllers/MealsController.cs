@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Backend.Models;
@@ -29,7 +30,8 @@ namespace Backend.Controllers
         // GET: api/Meals
         public IQueryable<Meal> GetMeals()
         {
-            return db.Meals;
+            db.Configuration.LazyLoadingEnabled = false;
+            return db.Meals.Include("Ingredients");
         }
 
         // GET: api/Meals/5
