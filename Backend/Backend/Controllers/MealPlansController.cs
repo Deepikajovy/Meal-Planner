@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,18 +20,97 @@ namespace Backend.Controllers
 
         protected UserManager<ApplicationUser> UserManger { get; set; }
         // GET: api/MealPlans
-        public IQueryable<MealPlan> GetMealPlans()
+        //public IQueryable<MealPlan> GetMealPlans()
+        //{
+        //    return db.MealPlans;
+        //}
+
+         //GET: api/MealPlans
+        public MealPlan GetMealPlansForLoggedInUser()
         {
-            return db.MealPlans;
+            var currentUser = UserManger.FindById(User.Identity.GetUserId());
+            return db.MealPlans.Where(w => w.User == currentUser).FirstOrDefault();
+            
         }
 
-        // GET: api/MealPlans
-        //public MealPlan GetMealPlansForLoggedInUser()
-        //{
-        //    var currentUser = UserManger.FindById(User.Identity.GetUserId());
-        //    return db.MealPlans.Where(w => w.User == currentUser).FirstOrDefault();
-            
-        //}
+        
+        [Route("api/MealPlans/ShoppingList")]
+        [AcceptVerbs("GET")]
+        public double GetShoppingList()
+        {
+            var l = new List<Ingredient>()
+            {
+                new Ingredient(){Name = "Pasta", Measurement = "grams",Quantity=10},
+                 new Ingredient(){Name = "Pasta", Measurement = "grams", Quantity=100},
+               //    new Ingredient(){Name = "Not Pasta", Measurement = "grams",Quantity=10},
+                 new Ingredient(){Name = "Not Pasta", Measurement = "grams", Quantity=100}
+            };
+            var s = new List<Meal>()
+            {
+                new Meal() {Name = "lasagne", Ingredients = l},
+           
+            };
+
+             
+
+            //var currentUser = UserManger.FindById(User.Identity.GetUserId());
+            //var currentUsersMealPlan =  db.MealPlans.Where(w => w.User == currentUser).FirstOrDefault();
+            List<Ingredient> listofIngredients = new List<Ingredient>();
+            foreach (var meal in s)
+            {
+                foreach (var Ing in meal.Ingredients)
+                {
+                    listofIngredients.Add(Ing);
+                }
+
+            }
+            var result = listofIngredients.GroupBy(p => p.Name, p => p.Quantity, (key, g) => new {Name = key, Quantities = g});
+            double total = 0;
+              List<double> quantities = new List<double>();
+
+            foreach (var i in result)
+            {
+               
+                foreach (var q in i.Name)
+                {
+                    foreach (var w in i.Quantities)
+                    {
+                        total += w;
+                    }
+                   
+                }
+                
+            }
+            var shoppingListSummary = listofIngredients.Where(x => x.Name != null).GroupBy(m => m.Name);
+               //.Select
+               //(s => new GroupedOrderViewModel() { ItemName = s.Key, Quantity = s.Count() });
+            return total;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // GET: api/MealPlans/5
         [ResponseType(typeof(MealPlan))]
