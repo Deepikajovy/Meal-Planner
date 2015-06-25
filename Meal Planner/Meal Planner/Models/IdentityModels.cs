@@ -11,6 +11,7 @@ namespace Meal_Planner.Models
     public class ApplicationUser : IdentityUser
     {
         public virtual ICollection<MealModel> Meal { get; set; }
+        public virtual ICollection<MealPlan> MealPlan { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -35,6 +36,7 @@ namespace Meal_Planner.Models
 
         public virtual DbSet<MealModel> Meals { get; set; }
         public virtual DbSet<IngredientModel> Ingredients { get; set; }
+        public virtual DbSet<MealPlan> MealPlans { get; set; }
 
     }
 }
