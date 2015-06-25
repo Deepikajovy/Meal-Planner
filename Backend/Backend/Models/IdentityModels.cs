@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System.Data.Entity;
+using System.Data.Entity.Core.Common.CommandTrees;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -29,5 +31,9 @@ namespace Backend.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Ingredient> Ingredients { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<MealPlan> MealPlans { get; set; }
     }
 }
