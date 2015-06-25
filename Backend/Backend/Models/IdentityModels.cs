@@ -20,7 +20,7 @@ namespace Backend.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -32,9 +32,9 @@ namespace Backend.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<Ingredient> Ingredients { get; set; }
-        public DbSet<Meal> Meals { get; set; }
-        public DbSet<MealPlan> MealPlans { get; set; }
+        public IDbSet<Ingredient> Ingredients { get; set; }
+        public IDbSet<Meal> Meals { get; set; }
+        public IDbSet<MealPlan> MealPlans { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
