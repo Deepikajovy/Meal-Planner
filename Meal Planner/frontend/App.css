@@ -1,0 +1,47 @@
+.navbar{
+  background-color: #303030;
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.container-fluid{
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: 300px;
+  margin-left: 300px;
+}
+.jumbotron h1{
+
+  color:#303030;
+
+}
+
+.jumbotron{
+  height: 250px;
+  text-align: center;
+  opacity: 0.5;
+  background-image: url("https://lovemynutbutt.files.wordpress.com/2013/12/cooking_at_home.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#section {
+  background-color: pink;
+  margin-right: 300px;
+  margin-left: 300px;
+
+}
+
+#section h1 {
+  text-align: center;
+}
+
+#footer {
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #303030;
+    min-height: 50px;
+}
