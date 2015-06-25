@@ -227,6 +227,10 @@
     <Compile Include="Migrations\201506250328586_init.Designer.cs">
       <DependentUpon>201506250328586_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506250457057_HasDefaultSchema.cs" />
+    <Compile Include="Migrations\201506250457057_HasDefaultSchema.Designer.cs">
+      <DependentUpon>201506250457057_HasDefaultSchema.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -316,6 +320,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201506250328586_init.resx">
       <DependentUpon>201506250328586_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506250457057_HasDefaultSchema.resx">
+      <DependentUpon>201506250457057_HasDefaultSchema.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
