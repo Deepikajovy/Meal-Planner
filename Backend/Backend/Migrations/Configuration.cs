@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Backend.Models;
+
 namespace Backend.Migrations
 {
     using System;
@@ -26,6 +29,33 @@ namespace Backend.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            
+            context.Ingredients.AddOrUpdate(
+                p => p.Name,
+                new Ingredient { Name = "Pasta",Measurement = "grams"},
+                new Ingredient { Name = "Cheese", Measurement = "grams"},
+                new Ingredient { Name = "Bacon", Measurement = "grams"}
+            );
+
+            context.SaveChanges();
+
+            context.Meals.AddOrUpdate(
+                p => p.Name,
+                new Meal { Name = "Lasagne",
+                    Ingredients = context.Ingredients.Where(w => w.Name == "Pasta" || w.Name == "Cheese").ToList(),
+                    Description = "Big Beef lasagne for the win",
+                    ImageUrl = "http://mangiarebuono.it/wp-content/uploads/2013/11/lasagna.jpg",
+                    },
+                new Meal { Name = "Bolognaise",},
+                new Meal { Name = "Chocolate Moose" }
+            );
+
+            context.SaveChanges();
+
+                context.MealPlans.AddOrUpdate(
+                p => p.Name,
+                new MealPlan { Name = "Lasagne", Meals = context.Meals.Where(w => w.Name == "Lasagne").ToList()}
+            );
         }
     }
 }
