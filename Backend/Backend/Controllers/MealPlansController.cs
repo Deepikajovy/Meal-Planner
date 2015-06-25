@@ -42,17 +42,16 @@ namespace Backend.Controllers
             {
                 new Ingredient(){Name = "Pasta", Measurement = "grams",Quantity=10},
                  new Ingredient(){Name = "Pasta", Measurement = "grams", Quantity=100},
-               //    new Ingredient(){Name = "Not Pasta", Measurement = "grams",Quantity=10},
-                 new Ingredient(){Name = "Not Pasta", Measurement = "grams", Quantity=100}
+                new Ingredient(){Name = "Not Pasta", Measurement = "grams",Quantity=420},
+                 new Ingredient(){Name = "Not Pasta", Measurement = "grams", Quantity=69}
             };
             var s = new List<Meal>()
             {
                 new Meal() {Name = "lasagne", Ingredients = l},
            
-            };         
+            }; 
+        
 
-            //var currentUser = UserManger.FindById(User.Identity.GetUserId());
-            //var currentUsersMealPlan =  db.MealPlans.Where(w => w.User == currentUser).FirstOrDefault();
             List<Ingredient> listofIngredients = new List<Ingredient>();
             foreach (var meal in s)
             {
@@ -67,19 +66,10 @@ namespace Backend.Controllers
            
               List<Ingredient> IngSummary = new List<Ingredient>();
 
-            foreach (var item in result)
-            {
-               
-                foreach (var kvp in item.Name)
-                {
-                    IngSummary.Add(new Ingredient(){Name =item.Name, Quantity =  item.Quantities.Sum(v => Convert.ToDouble(v))});
-                }
-                
-            }
-        
-            //var shoppingListSummary = listofIngredients.Where(x => x.Name != null).GroupBy(m => m.Name);
-               //.Select
-               //(s => new GroupedOrderViewModel() { ItemName = s.Key, Quantity = s.Count() });
+              foreach (var item in result)
+              {
+                  IngSummary.Add(new Ingredient() { Name = item.Name, Quantity = item.Quantities.Sum(v => Convert.ToDouble(v)) });
+              }
             return IngSummary;
         }
 
