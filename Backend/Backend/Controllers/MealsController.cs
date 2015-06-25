@@ -15,7 +15,17 @@ namespace Backend.Controllers
 {
     public class MealsController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private IApplicationDbContext db;
+
+        public MealsController(IApplicationDbContext applicationDb)
+        {
+            db = applicationDb;
+        }
+
+        public MealsController()
+        {
+            db = new ApplicationDbContext();
+        }
 
         // GET: api/Meals
         public IQueryable<Meal> GetMeals()
@@ -51,7 +61,7 @@ namespace Backend.Controllers
                 return BadRequest();
             }
 
-            db.Entry(meal).State = EntityState.Modified;
+            //db.Entry(meal).State = EntityState.Modified;
 
             try
             {
