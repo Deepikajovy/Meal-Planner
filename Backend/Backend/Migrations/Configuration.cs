@@ -22,7 +22,7 @@ namespace Backend.Migrations
             //    context.People.AddOrUpdate(
             //      p => p.FullName,
             //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Brice Lambson" },uit
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
