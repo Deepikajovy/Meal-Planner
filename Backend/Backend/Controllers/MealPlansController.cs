@@ -36,7 +36,7 @@ namespace Backend.Controllers
         
         [Route("api/MealPlans/ShoppingList")]
         [AcceptVerbs("GET")]
-        public double GetShoppingList()
+        public List<Ingredient> GetShoppingList()
         {
             var l = new List<Ingredient>()
             {
@@ -49,9 +49,7 @@ namespace Backend.Controllers
             {
                 new Meal() {Name = "lasagne", Ingredients = l},
            
-            };
-
-             
+            };         
 
             //var currentUser = UserManger.FindById(User.Identity.GetUserId());
             //var currentUsersMealPlan =  db.MealPlans.Where(w => w.User == currentUser).FirstOrDefault();
@@ -64,27 +62,25 @@ namespace Backend.Controllers
                 }
 
             }
-            var result = listofIngredients.GroupBy(p => p.Name, p => p.Quantity, (key, g) => new {Name = key, Quantities = g});
-            double total = 0;
-              List<double> quantities = new List<double>();
 
-            foreach (var i in result)
+            var result = listofIngredients.GroupBy(p => p.Name, p => p.Quantity, (key, g) => new {Name = key, Quantities = g});
+           
+              List<Ingredient> IngSummary = new List<Ingredient>();
+
+            foreach (var item in result)
             {
                
-                foreach (var q in i.Name)
+                foreach (var kvp in item.Name)
                 {
-                    foreach (var w in i.Quantities)
-                    {
-                        total += w;
-                    }
-                   
+                    IngSummary.Add(new Ingredient(){Name =item.Name, Quantity =  item.Quantities.Sum(v => Convert.ToDouble(v))});
                 }
                 
             }
-            var shoppingListSummary = listofIngredients.Where(x => x.Name != null).GroupBy(m => m.Name);
+        
+            //var shoppingListSummary = listofIngredients.Where(x => x.Name != null).GroupBy(m => m.Name);
                //.Select
                //(s => new GroupedOrderViewModel() { ItemName = s.Key, Quantity = s.Count() });
-            return total;
+            return IngSummary;
         }
 
 
