@@ -1,8 +1,9 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 
 namespace Backend.Models
 {
-    public interface IApplicationDbContext
+    public interface IApplicationDbContext : IDisposable 
     {
         IDbSet<Ingredient> Ingredients { get; set; }
         IDbSet<Meal> Meals { get; set; }
