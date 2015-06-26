@@ -222,3 +222,31 @@
     w.attachEvent("onresize", callMedia);
   }
 })(this);
+
+$(document).ready(function() {
+
+    var loginData = {
+    grant_type: 'password',
+    username: "max@max.com",
+    password: "Password_1"
+};
+
+
+
+$.ajax({
+    type: 'POST',
+    url: '/Token',
+    data: loginData
+}).done(function (data) {
+    //self.user(data.userName);
+    // Cache the access token in session storage.
+    console.log("sucesssss",data);
+    sessionStorage.setItem('tokenKey', data.access_token);
+    console.log("sucesssss");
+}).fail(showError);
+
+function showError(data) {
+    console.log('error :( ', data);
+}
+
+});

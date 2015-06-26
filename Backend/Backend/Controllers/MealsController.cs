@@ -15,6 +15,7 @@ namespace Backend.Controllers
 {
     public class MealsController : ApiController
     {
+       
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Meals
