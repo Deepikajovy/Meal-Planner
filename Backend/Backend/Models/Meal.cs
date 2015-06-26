@@ -10,8 +10,9 @@ namespace Backend.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public virtual List<Ingredient> Ingredients { get; set; }
+        public virtual ICollection<Ingredient> Ingredients { get; set; }
         public ApplicationUser User { get; set; }
         public string ImageUrl { get; set; }
+        public virtual ICollection<MealPlan> MealPlans { get; set; } 
     }
 }

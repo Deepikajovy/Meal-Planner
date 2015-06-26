@@ -50,12 +50,12 @@ namespace Backend.Migrations
                 new Meal { Name = "Chocolate Moose" }
             );
 
-            context.SaveChanges();
+            //context.SaveChanges();
 
-                context.MealPlans.AddOrUpdate(
-                p => p.Name,
-                new MealPlan { Name = "Lasagne", Meals = context.Meals.Where(w => w.Name == "Lasagne").ToList(), User = new ApplicationUser(){UserName = "Max"}}
-            );
+            //    context.MealPlans.AddOrUpdate(
+            //    p => p.Name,
+            //    new MealPlan { Name = "Lasagne", Meals = context.Meals.Where(w => w.Name == "Lasagne").ToList(), User = new ApplicationUser(){UserName = "Max"}}
+            //);
                 context.SaveChanges();
 
             //    context.ApplicationUser.AddOrUpdate(
