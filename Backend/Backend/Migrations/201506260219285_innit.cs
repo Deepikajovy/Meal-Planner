@@ -3,12 +3,12 @@ namespace Backend.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class innit : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Ingredients",
+                "roameals.Ingredients",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -18,11 +18,11 @@ namespace Backend.Migrations
                         Meal_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Meals", t => t.Meal_Id)
+                .ForeignKey("roameals.Meals", t => t.Meal_Id)
                 .Index(t => t.Meal_Id);
             
             CreateTable(
-                "dbo.MealPlans",
+                "roameals.MealPlans",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -30,11 +30,11 @@ namespace Backend.Migrations
                         User_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
+                .ForeignKey("roameals.AspNetUsers", t => t.User_Id)
                 .Index(t => t.User_Id);
             
             CreateTable(
-                "dbo.Meals",
+                "roameals.Meals",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -42,16 +42,13 @@ namespace Backend.Migrations
                         Description = c.String(),
                         ImageUrl = c.String(),
                         User_Id = c.String(maxLength: 128),
-                        MealPlan_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .ForeignKey("dbo.MealPlans", t => t.MealPlan_Id)
-                .Index(t => t.User_Id)
-                .Index(t => t.MealPlan_Id);
+                .ForeignKey("roameals.AspNetUsers", t => t.User_Id)
+                .Index(t => t.User_Id);
             
             CreateTable(
-                "dbo.AspNetUsers",
+                "roameals.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
@@ -71,7 +68,7 @@ namespace Backend.Migrations
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
-                "dbo.AspNetUserClaims",
+                "roameals.AspNetUserClaims",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -80,11 +77,11 @@ namespace Backend.Migrations
                         ClaimValue = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("roameals.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.AspNetUserLogins",
+                "roameals.AspNetUserLogins",
                 c => new
                     {
                         LoginProvider = c.String(nullable: false, maxLength: 128),
@@ -92,24 +89,24 @@ namespace Backend.Migrations
                         UserId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("roameals.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.AspNetUserRoles",
+                "roameals.AspNetUserRoles",
                 c => new
                     {
                         UserId = c.String(nullable: false, maxLength: 128),
                         RoleId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("roameals.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("roameals.AspNetRoles", t => t.RoleId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
             CreateTable(
-                "dbo.AspNetRoles",
+                "roameals.AspNetRoles",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
@@ -118,36 +115,52 @@ namespace Backend.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
+            CreateTable(
+                "roameals.MealMealPlans",
+                c => new
+                    {
+                        Meal_Id = c.Int(nullable: false),
+                        MealPlan_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Meal_Id, t.MealPlan_Id })
+                .ForeignKey("roameals.Meals", t => t.Meal_Id, cascadeDelete: true)
+                .ForeignKey("roameals.MealPlans", t => t.MealPlan_Id, cascadeDelete: true)
+                .Index(t => t.Meal_Id)
+                .Index(t => t.MealPlan_Id);
+            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.MealPlans", "User_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Meals", "MealPlan_Id", "dbo.MealPlans");
-            DropForeignKey("dbo.Meals", "User_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Ingredients", "Meal_Id", "dbo.Meals");
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
-            DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Meals", new[] { "MealPlan_Id" });
-            DropIndex("dbo.Meals", new[] { "User_Id" });
-            DropIndex("dbo.MealPlans", new[] { "User_Id" });
-            DropIndex("dbo.Ingredients", new[] { "Meal_Id" });
-            DropTable("dbo.AspNetRoles");
-            DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.AspNetUserClaims");
-            DropTable("dbo.AspNetUsers");
-            DropTable("dbo.Meals");
-            DropTable("dbo.MealPlans");
-            DropTable("dbo.Ingredients");
+            DropForeignKey("roameals.AspNetUserRoles", "RoleId", "roameals.AspNetRoles");
+            DropForeignKey("roameals.MealPlans", "User_Id", "roameals.AspNetUsers");
+            DropForeignKey("roameals.Meals", "User_Id", "roameals.AspNetUsers");
+            DropForeignKey("roameals.AspNetUserRoles", "UserId", "roameals.AspNetUsers");
+            DropForeignKey("roameals.AspNetUserLogins", "UserId", "roameals.AspNetUsers");
+            DropForeignKey("roameals.AspNetUserClaims", "UserId", "roameals.AspNetUsers");
+            DropForeignKey("roameals.MealMealPlans", "MealPlan_Id", "roameals.MealPlans");
+            DropForeignKey("roameals.MealMealPlans", "Meal_Id", "roameals.Meals");
+            DropForeignKey("roameals.Ingredients", "Meal_Id", "roameals.Meals");
+            DropIndex("roameals.MealMealPlans", new[] { "MealPlan_Id" });
+            DropIndex("roameals.MealMealPlans", new[] { "Meal_Id" });
+            DropIndex("roameals.AspNetRoles", "RoleNameIndex");
+            DropIndex("roameals.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("roameals.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("roameals.AspNetUserLogins", new[] { "UserId" });
+            DropIndex("roameals.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("roameals.AspNetUsers", "UserNameIndex");
+            DropIndex("roameals.Meals", new[] { "User_Id" });
+            DropIndex("roameals.MealPlans", new[] { "User_Id" });
+            DropIndex("roameals.Ingredients", new[] { "Meal_Id" });
+            DropTable("roameals.MealMealPlans");
+            DropTable("roameals.AspNetRoles");
+            DropTable("roameals.AspNetUserRoles");
+            DropTable("roameals.AspNetUserLogins");
+            DropTable("roameals.AspNetUserClaims");
+            DropTable("roameals.AspNetUsers");
+            DropTable("roameals.Meals");
+            DropTable("roameals.MealPlans");
+            DropTable("roameals.Ingredients");
         }
     }
 }

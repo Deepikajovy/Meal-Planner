@@ -7,13 +7,13 @@ namespace Backend.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class manytomanymeal : IMigrationMetadata
+    public sealed partial class innit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(manytomanymeal));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(innit));
         
         string IMigrationMetadata.Id
         {
-            get { return "201506252258443_many-to-many-meal"; }
+            get { return "201506260219285_innit"; }
         }
         
         string IMigrationMetadata.Source
