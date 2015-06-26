@@ -28,6 +28,8 @@ namespace Backend.Controllers
          //GET: api/MealPlans
         public MealPlan GetMealPlansForLoggedInUser()
         {
+            var currentUserWebApi = RequestContext.Principal;
+
             var currentUser = UserManger.FindById(User.Identity.GetUserId());
             return db.MealPlans.Where(w => w.User == currentUser).FirstOrDefault();
             
