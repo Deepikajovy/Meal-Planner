@@ -28,6 +28,7 @@ namespace Backend.Controllers
         //}
 
          //GET: api/MealPlans
+           [Authorize]
         public MealPlan GetMealPlansForLoggedInUser()
         {
 
@@ -43,6 +44,7 @@ namespace Backend.Controllers
         
         [Route("api/MealPlans/ShoppingList")]
         [AcceptVerbs("GET")]
+        [Authorize]
         public List<Ingredient> GetShoppingList()
         {
             var currentUsersName = RequestContext.Principal.Identity.Name;
@@ -70,7 +72,7 @@ namespace Backend.Controllers
         }
 
         [Route("api/MealPlans/AddTo")]
-        //[Authorize]
+        [Authorize]
         [AcceptVerbs("POST")]
         public IHttpActionResult AddToCurrentUsersPlan(Meal currentMeal)
         {
@@ -109,6 +111,7 @@ namespace Backend.Controllers
 
         // GET: api/MealPlans/5
         [ResponseType(typeof(MealPlan))]
+        [Authorize]
         public IHttpActionResult GetMealPlan(int id)
         {
             MealPlan mealPlan = db.MealPlans.Find(id);
@@ -122,6 +125,7 @@ namespace Backend.Controllers
 
         // PUT: api/MealPlans/5
         [ResponseType(typeof(void))]
+        [Authorize]
         public IHttpActionResult PutMealPlan(int id, MealPlan mealPlan)
         {
             if (!ModelState.IsValid)
@@ -157,6 +161,7 @@ namespace Backend.Controllers
 
         // POST: api/MealPlans
         [ResponseType(typeof(MealPlan))]
+        [Authorize]
         public IHttpActionResult PostMealPlan(MealPlan mealPlan)
         {
             if (!ModelState.IsValid)
@@ -172,6 +177,7 @@ namespace Backend.Controllers
 
         // DELETE: api/MealPlans/5
         [ResponseType(typeof(MealPlan))]
+        [Authorize]
         public IHttpActionResult DeleteMealPlan(int id)
         {
             MealPlan mealPlan = db.MealPlans.Find(id);
