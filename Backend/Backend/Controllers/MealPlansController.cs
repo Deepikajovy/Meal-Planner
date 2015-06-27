@@ -7,6 +7,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Backend.Models;
@@ -18,7 +19,7 @@ namespace Backend.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        protected UserManager<ApplicationUser> UserManger { get; set; }
+       // protected UserManager<ApplicationUser> UserManger { get; set; }
         // GET: api/MealPlans
         //public IQueryable<MealPlan> GetMealPlans()
         //{
@@ -28,23 +29,26 @@ namespace Backend.Controllers
          //GET: api/MealPlans
         public MealPlan GetMealPlansForLoggedInUser()
         {
-            var currentUserWebApi = RequestContext.Principal;
 
-            var currentUser = UserManger.FindById(User.Identity.GetUserId());
-            return db.MealPlans.Where(w => w.User == currentUser).FirstOrDefault();
-            
+            var currentUsersName = RequestContext.Principal.Identity.Name;
+           // var currentUser = db.Users.Where(w => w.Email == currentUsersName).First();
+            var mealplan = db.MealPlans.Where(w => w.User.Email == currentUsersName).FirstOrDefault();
+           // var currentUser = UserManger.FindById(id);
+           //return db.MealPlans.Where(w => w.User == currentUsers).FirstOrDefault();
+            return mealplan;
+
         }
 
         
         [Route("api/MealPlans/ShoppingList")]
         [AcceptVerbs("GET")]
-        public List<Ingredient> GetShoppingList()
+        public List<Ingredient> GetShoppingList(string id)
         {
-           var currentUser = UserManger.FindById(User.Identity.GetUserId());
-           var currentUserMealPlan =  db.MealPlans.Where(w => w.User == currentUser).FirstOrDefault();
-             
+            var currentUsersName = RequestContext.Principal.Identity.Name;
+          
+           var mealplan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
             List<Ingredient> listofIngredients = new List<Ingredient>();
-            foreach (var meal in currentUserMealPlan.Meals)
+            foreach (var meal in mealplan.Meals)
             {
                 foreach (var Ing in meal.Ingredients)
                 {

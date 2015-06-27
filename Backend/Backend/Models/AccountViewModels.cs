@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Backend.Models
 {
     // Models returned by AccountController actions.
-
+     
     public class ExternalLoginViewModel
     {
         public string Name { get; set; }
@@ -27,6 +27,8 @@ namespace Backend.Models
 
     public class UserInfoViewModel
     {
+        public string Id { get; set; }
+
         public string Email { get; set; }
 
         public bool HasRegistered { get; set; }
