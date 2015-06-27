@@ -15,7 +15,7 @@ namespace Backend.Controllers
 {
     public class MealsController : ApiController
     {
-       
+     
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Meals
@@ -26,6 +26,7 @@ namespace Backend.Controllers
         }
 
         // GET: api/Meals/5
+           [Authorize]
         [ResponseType(typeof(Meal))]
         public IHttpActionResult GetMeal(int id)
         {
@@ -38,7 +39,9 @@ namespace Backend.Controllers
             return Ok(meal);
         }
 
+          
         // PUT: api/Meals/5
+           [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult PutMeal(int id, Meal meal)
         {
@@ -75,6 +78,7 @@ namespace Backend.Controllers
 
         // POST: api/Meals
         [ResponseType(typeof(Meal))]
+        [Authorize]
         public IHttpActionResult PostMeal(Meal meal)
           
            
@@ -95,6 +99,7 @@ namespace Backend.Controllers
 
         // DELETE: api/Meals/5
         [ResponseType(typeof(Meal))]
+        [Authorize]
         public IHttpActionResult DeleteMeal(int id)
         {
             Meal meal = db.Meals.Find(id);
