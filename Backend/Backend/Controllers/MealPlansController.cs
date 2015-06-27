@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -78,20 +79,28 @@ namespace Backend.Controllers
             if (db.MealPlans.Where(w => w.User.Email == currentUsersName).FirstOrDefault() == null)
             {
                 MealPlan mealPlan = new MealPlan();
-                //var meal = db.Meals.Find(id);
-                mealPlan.Meals.Add(currentMeal);
+                var meal = db.Meals.Find(id);
                 var currentUser = db.Users.Where(x => x.Email == currentUsersName).First();
                 mealPlan.User = currentUser;
+                List<Meal> meals = new List<Meal>();
+                meals.Add(meal);
+                mealPlan.Meals = meals;
+                db.MealPlans.Add(mealPlan);
+                
+                
             }
             else
             {
             
-            var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
-           // var meal = db.Meals.Find(id);
-            mealPlan.Meals.Add(currentMeal);
+                var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
+                var Meals = mealPlan.Meals;
+                Meals.Add(currentMeal);
+                mealPlan.Meals = Meals;
+
             }
-        
+
             db.SaveChanges();
+           
             return Ok();
         }
 

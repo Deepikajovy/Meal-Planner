@@ -76,12 +76,17 @@ namespace Backend.Controllers
         // POST: api/Meals
         [ResponseType(typeof(Meal))]
         public IHttpActionResult PostMeal(Meal meal)
+          
+           
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            var currentUsersName = RequestContext.Principal.Identity.Name;
+            var currentUser = db.Users.Where(x => x.Email == currentUsersName).First();
+            meal.User= currentUser;
             db.Meals.Add(meal);
             db.SaveChanges();
 
