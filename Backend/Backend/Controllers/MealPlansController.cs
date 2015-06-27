@@ -42,7 +42,7 @@ namespace Backend.Controllers
         
         [Route("api/MealPlans/ShoppingList")]
         [AcceptVerbs("GET")]
-        public List<Ingredient> GetShoppingList(string id)
+        public List<Ingredient> GetShoppingList()
         {
             var currentUsersName = RequestContext.Principal.Identity.Name;
           
@@ -56,7 +56,7 @@ namespace Backend.Controllers
                 }
 
             }
-
+            
             var result = listofIngredients.GroupBy(p => p.Name, p => p.Quantity, (key, g) => new {Name = key, Quantities = g});
            
               List<Ingredient> IngSummary = new List<Ingredient>();
@@ -68,27 +68,29 @@ namespace Backend.Controllers
             return IngSummary;
         }
 
+        [Route("api/MealPlans/AddTo")]
+        [AcceptVerbs("POST")]
+        public IHttpActionResult AddToCurrentUsersPlan(string id)
+        {
+            var currentUsersName = RequestContext.Principal.Identity.Name;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            if (db.MealPlans.Where(w => w.User.Email == currentUsersName).First() == null)
+            {
+                MealPlan mealPlan = new MealPlan();
+                var meal = db.Meals.Find(id);
+                mealPlan.Meals.Add(meal);
+            }
+            else
+            {
+            
+            var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
+            var meal = db.Meals.Find(id);
+            mealPlan.Meals.Add(meal);
+            }
+        
+            db.SaveChanges();
+            return Ok();
+        }
 
 
 
