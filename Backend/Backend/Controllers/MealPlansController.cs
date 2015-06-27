@@ -69,23 +69,26 @@ namespace Backend.Controllers
         }
 
         [Route("api/MealPlans/AddTo")]
+        //[Authorize]
         [AcceptVerbs("POST")]
         public IHttpActionResult AddToCurrentUsersPlan(Meal currentMeal)
         {
             var currentUsersName = RequestContext.Principal.Identity.Name;
             var id = currentMeal.Id;
-            if (db.MealPlans.Where(w => w.User.Email == currentUsersName).First() == null)
+            if (db.MealPlans.Where(w => w.User.Email == currentUsersName).FirstOrDefault() == null)
             {
                 MealPlan mealPlan = new MealPlan();
-                var meal = db.Meals.Find(id);
-                mealPlan.Meals.Add(meal);
+                //var meal = db.Meals.Find(id);
+                mealPlan.Meals.Add(currentMeal);
+                var currentUser = db.Users.Where(x => x.Email == currentUsersName).First();
+                mealPlan.User = currentUser;
             }
             else
             {
             
             var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
-            var meal = db.Meals.Find(id);
-            mealPlan.Meals.Add(meal);
+           // var meal = db.Meals.Find(id);
+            mealPlan.Meals.Add(currentMeal);
             }
         
             db.SaveChanges();
