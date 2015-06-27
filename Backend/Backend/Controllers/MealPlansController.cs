@@ -70,10 +70,10 @@ namespace Backend.Controllers
 
         [Route("api/MealPlans/AddTo")]
         [AcceptVerbs("POST")]
-        public IHttpActionResult AddToCurrentUsersPlan(string id)
+        public IHttpActionResult AddToCurrentUsersPlan(Meal currentMeal)
         {
             var currentUsersName = RequestContext.Principal.Identity.Name;
-
+            var id = currentMeal.Id;
             if (db.MealPlans.Where(w => w.User.Email == currentUsersName).First() == null)
             {
                 MealPlan mealPlan = new MealPlan();
