@@ -16,6 +16,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Backend.Controllers
 {
+    
     public class MealPlansController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -97,12 +98,36 @@ namespace Backend.Controllers
                 var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
                 var userListOfMeals = mealPlan.Meals;
                 userListOfMeals.Add(currentMeal);
-                mealPlan.Meals = Meals;
+                mealPlan.Meals = userListOfMeals;
 
             }
 
             db.SaveChanges();
            
+            return Ok();
+        }
+
+
+        [Route("api/MealPlans/DeleteFromMealPlan")]
+        [Authorize]
+        [AcceptVerbs("POST")]
+        public IHttpActionResult DeletemealFromMealPlan(int mealindex)
+        {
+            var currentUsersName = RequestContext.Principal.Identity.Name;        
+                       
+
+            var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
+
+            var mealToBeDeleted = mealPlan.Meals.ToList()[mealindex];
+            mealPlan.Meals.Remove(mealToBeDeleted);
+            //userListOfMeals.re
+                //userListOfMeals.Add(currentMeal);
+                //mealPlan.Meals = userListOfMeals;
+
+            
+
+            db.SaveChanges();
+
             return Ok();
         }
 
