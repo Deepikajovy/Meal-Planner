@@ -72,49 +72,38 @@ namespace Backend.Controllers
             return IngSummary;
         }
 
-        [Route("api/MealPlans/AddTo/{index}")]
+        [Route("api/MealPlans/AddTo")]
         [Authorize]
         [AcceptVerbs("POST")]
-        public IHttpActionResult AddToCurrentUsersPlan(Meal currentMeal, int index)
+        public IHttpActionResult AddToCurrentUsersPlan(Meal currentMeal)
         {
             var currentUsersName = RequestContext.Principal.Identity.Name;
             var id = currentMeal.Id;
             if (db.MealPlans.Where(w => w.User.Email == currentUsersName).FirstOrDefault() == null)
             {
                 MealPlan mealPlan = new MealPlan();
-              //  var meal = db.Meals.Find(2);
+                var meal = db.Meals.Find(id);
                 var currentUser = db.Users.Where(x => x.Email == currentUsersName).First();
-                 mealPlan.User = currentUser;
-                 Meal[] meals = new Meal[7];
-                 meals[index] = currentMeal;
-                 mealPlan.Meals = meals;
-               // mealPlan.Meals[1] = meal;
-               // List<Meal> userListOfMeals = new List<Meal>();
-                //userListOfMeals.Add(meal);
-                //mealPlan.Meals = userListOfMeals;
+                mealPlan.User = currentUser;
+                List<Meal> userListOfMeals = new List<Meal>();
+                userListOfMeals.Add(meal);
+                mealPlan.Meals = userListOfMeals;
                 db.MealPlans.Add(mealPlan);
-
-
+                
+                
             }
             else
             {
-
+            
                 var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
-                var currentmeals = mealPlan.Meals;
-                mealPlan.Meals[index] = currentMeal;
-
-                //var meal = db.Meals.Find(id);
-                //Meal[] meals = new Meal[7];
-                //meals[index] = currentMeal;
-               // mealPlan.Meals = meals;
-                //var userListOfMeals = mealPlan.Meals;
-                //userListOfMeals.Add(currentMeal);
-                //mealPlan.Meals = userListOfMeals;
+                var userListOfMeals = mealPlan.Meals;
+                userListOfMeals.Add(currentMeal);
+                mealPlan.Meals = userListOfMeals;
 
             }
 
             db.SaveChanges();
-
+           
             return Ok();
         }
 
@@ -124,18 +113,18 @@ namespace Backend.Controllers
         [AcceptVerbs("POST")]
         public IHttpActionResult DeletemealFromMealPlan(int mealindex)
         {
-            var currentUsersName = RequestContext.Principal.Identity.Name;
-
+            var currentUsersName = RequestContext.Principal.Identity.Name;        
+                       
 
             var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
 
             var mealToBeDeleted = mealPlan.Meals.ToList()[mealindex];
-           // mealPlan.Meals.Remove(mealToBeDeleted);
+            mealPlan.Meals.Remove(mealToBeDeleted);
             //userListOfMeals.re
-            //userListOfMeals.Add(currentMeal);
-            //mealPlan.Meals = userListOfMeals;
+                //userListOfMeals.Add(currentMeal);
+                //mealPlan.Meals = userListOfMeals;
 
-
+            
 
             db.SaveChanges();
 
