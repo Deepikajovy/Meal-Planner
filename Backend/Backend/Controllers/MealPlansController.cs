@@ -20,31 +20,18 @@ namespace Backend.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-       // protected UserManager<ApplicationUser> UserManger { get; set; }
-        // GET: api/MealPlans
-        //public IQueryable<MealPlan> GetMealPlans()
-        //{
-        //    return db.MealPlans;
-        //}
-
          //GET: api/MealPlans
-           [Authorize]
+        [Authorize]
         public MealPlan GetMealPlansForLoggedInUser()
         {
-
-            var currentUsersName = RequestContext.Principal.Identity.Name;
-           // var currentUser = db.Users.Where(w => w.Email == currentUsersName).First();
-            var mealplan = db.MealPlans.Where(w => w.User.Email == currentUsersName).FirstOrDefault();
-           // var currentUser = UserManger.FindById(id);
-           //return db.MealPlans.Where(w => w.User == currentUsers).FirstOrDefault();
-            return mealplan;
-
+           var currentUsersName = RequestContext.Principal.Identity.Name;
+           var mealplan = db.MealPlans.Where(w => w.User.Email == currentUsersName).FirstOrDefault();
+           return mealplan;
         }
 
-        
+        [Authorize]
         [Route("api/MealPlans/ShoppingList")]
         [AcceptVerbs("GET")]
-        [Authorize]
         public List<Ingredient> GetShoppingList()
         {
             var currentUsersName = RequestContext.Principal.Identity.Name;
@@ -71,8 +58,8 @@ namespace Backend.Controllers
             return IngSummary;
         }
 
-        [Route("api/MealPlans/AddTo")]
         [Authorize]
+        [Route("api/MealPlans/AddTo")]
         [AcceptVerbs("POST")]
         public IHttpActionResult AddToCurrentUsersPlan(Meal currentMeal)
         {
@@ -92,20 +79,17 @@ namespace Backend.Controllers
                 
             }
             else
-            {
-            
+            {          
                 var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
                 var userListOfMeals = mealPlan.Meals;
                 userListOfMeals.Add(currentMeal);
-                mealPlan.Meals = Meals;
-
+                mealPlan.Meals = userListOfMeals;
             }
 
             db.SaveChanges();
            
             return Ok();
         }
-
 
 
 
