@@ -84,9 +84,9 @@ namespace Backend.Controllers
                 var meal = db.Meals.Find(id);
                 var currentUser = db.Users.Where(x => x.Email == currentUsersName).First();
                 mealPlan.User = currentUser;
-                List<Meal> meals = new List<Meal>();
-                meals.Add(meal);
-                mealPlan.Meals = meals;
+                List<Meal> userListOfMeals = new List<Meal>();
+                userListOfMeals.Add(meal);
+                mealPlan.Meals = userListOfMeals;
                 db.MealPlans.Add(mealPlan);
                 
                 
@@ -95,8 +95,8 @@ namespace Backend.Controllers
             {
             
                 var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
-                var Meals = mealPlan.Meals;
-                Meals.Add(currentMeal);
+                var userListOfMeals = mealPlan.Meals;
+                userListOfMeals.Add(currentMeal);
                 mealPlan.Meals = Meals;
 
             }
