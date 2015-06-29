@@ -235,9 +235,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506260219285_innit.cs" />
-    <Compile Include="Migrations\201506260219285_innit.Designer.cs">
-      <DependentUpon>201506260219285_innit.cs</DependentUpon>
+    <Compile Include="Migrations\201506290620100_init.cs" />
+    <Compile Include="Migrations\201506290620100_init.Designer.cs">
+      <DependentUpon>201506290620100_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201506290905104_MealPlanData model added.cs" />
     <Compile Include="Migrations\201506290905104_MealPlanData model added.Designer.cs">
@@ -383,8 +383,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506260219285_innit.resx">
-      <DependentUpon>201506260219285_innit.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506290620100_init.resx">
+      <DependentUpon>201506290620100_init.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506290905104_MealPlanData model added.resx">
       <DependentUpon>201506290905104_MealPlanData model added.cs</DependentUpon>

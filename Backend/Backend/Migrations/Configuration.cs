@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using Backend.Models;
-
 namespace Backend.Migrations
 {
     using System;
@@ -25,10 +22,11 @@ namespace Backend.Migrations
             //    context.People.AddOrUpdate(
             //      p => p.FullName,
             //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },uit
+            //      new Person { FullName = "Brice Lambson" },
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
             
             /*context.Ingredients.AddOrUpdate(
                 p => p.Name,
@@ -56,12 +54,13 @@ namespace Backend.Migrations
             //    p => p.Name,
             //    new MealPlan { Name = "Lasagne", Meals = context.Meals.Where(w => w.Name == "Lasagne").ToList(), User = new ApplicationUser(){UserName = "Max"}}
             //);
-                context.SaveChanges();
+            //    context.SaveChanges();
 
             //    context.ApplicationUser.AddOrUpdate(
             //    p => p.Name,
             //    new Ap { Name = "Lasagne", Meals = context.Meals.Where(w => w.Name == "Lasagne").ToList() }
             //);
+
         }
     }
 }
