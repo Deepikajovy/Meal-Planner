@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201506260219285_innit.Designer.cs">
       <DependentUpon>201506260219285_innit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506290436524_name_flied.cs" />
+    <Compile Include="Migrations\201506290436524_name_flied.Designer.cs">
+      <DependentUpon>201506290436524_name_flied.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -336,6 +340,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201506260219285_innit.resx">
       <DependentUpon>201506260219285_innit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506290436524_name_flied.resx">
+      <DependentUpon>201506290436524_name_flied.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
