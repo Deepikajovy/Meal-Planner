@@ -65,9 +65,10 @@ namespace Backend.Controllers
            
               List<Ingredient> IngSummary = new List<Ingredient>();
 
+               
               foreach (var item in result)
               {
-                  IngSummary.Add(new Ingredient() { Name = item.Name, Quantity = item.Quantities.Sum(v => Convert.ToDouble(v)) });
+                  IngSummary.Add(new Ingredient() { Name = item.Name, Quantity = item.Quantities.Sum(v => Convert.ToDouble(v)), Measurement = db.Ingredients.Where(y => y.Name == item.Name).First().Measurement});
               }
             return IngSummary;
         }
