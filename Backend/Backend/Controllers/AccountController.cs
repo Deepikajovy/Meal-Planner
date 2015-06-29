@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -56,11 +57,18 @@ namespace Backend.Controllers
         [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+
+            var currentUsersName = RequestContext.Principal.Identity.Name;
+            var currentUser = db.Users.Where(x => x.Email == currentUsersName).First();
+            
 
             return new UserInfoViewModel
             {
                 Id = User.Identity.GetUserId(),
+                Name = currentUser.Name,
                 Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
@@ -329,7 +337,7 @@ namespace Backend.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, Name = model.Name};
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
