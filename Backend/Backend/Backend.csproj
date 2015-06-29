@@ -239,6 +239,10 @@
     <Compile Include="Migrations\201506290620100_init.Designer.cs">
       <DependentUpon>201506290620100_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506292336201_mealPlanItems.cs" />
+    <Compile Include="Migrations\201506292336201_mealPlanItems.Designer.cs">
+      <DependentUpon>201506292336201_mealPlanItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -337,6 +341,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201506290620100_init.resx">
       <DependentUpon>201506290620100_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506292336201_mealPlanItems.resx">
+      <DependentUpon>201506292336201_mealPlanItems.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
