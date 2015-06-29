@@ -13,6 +13,6 @@ namespace Backend.Models
         public virtual ICollection<Ingredient> Ingredients { get; set; }
         public ApplicationUser User { get; set; }
         public string ImageUrl { get; set; }
-        public virtual ICollection<MealPlan> MealPlans { get; set; } 
+        public virtual ICollection<MealPlanData> MealPlanDatas { get; set; }
     }
 }

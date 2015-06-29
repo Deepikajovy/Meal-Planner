@@ -12,7 +12,7 @@ namespace Backend.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Backend.Models.ApplicationDbContext context)
@@ -30,7 +30,7 @@ namespace Backend.Migrations
             //    );
             //
             
-            context.Ingredients.AddOrUpdate(
+            /*context.Ingredients.AddOrUpdate(
                 p => p.Name,
                 new Ingredient { Name = "Pasta",Measurement = "grams"},
                 new Ingredient { Name = "Cheese", Measurement = "grams"},
@@ -48,7 +48,7 @@ namespace Backend.Migrations
                     },
                 new Meal { Name = "Bolognaise",},
                 new Meal { Name = "Chocolate Moose" }
-            );
+            );*/
 
             //context.SaveChanges();
 

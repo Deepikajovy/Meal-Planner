@@ -50,17 +50,22 @@ namespace Backend.Controllers
         {
             var currentUsersName = RequestContext.Principal.Identity.Name;
           
-           var mealplan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
+           var mealplan = db.MealPlans.Where(w => w.User.Email == currentUsersName).FirstOrDefault();
             List<Ingredient> listofIngredients = new List<Ingredient>();
-            foreach (var meal in mealplan.Meals)
+            if (mealplan != null)
             {
-                foreach (var Ing in meal.Ingredients)
+                foreach (var mealPlanData in mealplan.MealPlanData)
                 {
-                    listofIngredients.Add(Ing);
-                }
+                    foreach (var meal in mealPlanData.Meals)
+                    {
+                        foreach (var Ing in meal.Ingredients)
+                        {
+                            listofIngredients.Add(Ing);
+                        }
+                    }
 
+                }
             }
-            
             var result = listofIngredients.GroupBy(p => p.Name, p => p.Quantity, (key, g) => new {Name = key, Quantities = g});
            
               List<Ingredient> IngSummary = new List<Ingredient>();
@@ -75,7 +80,7 @@ namespace Backend.Controllers
         [Route("api/MealPlans/AddTo")]
         [Authorize]
         [AcceptVerbs("POST")]
-        public IHttpActionResult AddToCurrentUsersPlan(Meal currentMeal)
+        public IHttpActionResult AddToCurrentUsersPlan(Meal currentMeal, string day)
         {
             var currentUsersName = RequestContext.Principal.Identity.Name;
             var id = currentMeal.Id;
@@ -85,21 +90,66 @@ namespace Backend.Controllers
                 var meal = db.Meals.Find(id);
                 var currentUser = db.Users.Where(x => x.Email == currentUsersName).First();
                 mealPlan.User = currentUser;
+                
                 List<Meal> userListOfMeals = new List<Meal>();
                 userListOfMeals.Add(meal);
-                mealPlan.Meals = userListOfMeals;
+
+                var mealPlanData = new MealPlanData
+                {
+                    Day = day,
+                    Date = DateTime.Now,
+                    Meals = userListOfMeals
+                };
+
+                //Meals is an ICollection of MealPlanData. so create the list and add the mealPlanData that we created before to it.
+                mealPlan.MealPlanData = new List<MealPlanData>()
+                {
+                    mealPlanData
+                };
+
+                
                 db.MealPlans.Add(mealPlan);
-                
-                
             }
             else
             {
             
                 var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
-                var userListOfMeals = mealPlan.Meals;
-                userListOfMeals.Add(currentMeal);
-                mealPlan.Meals = userListOfMeals;
 
+                //if(mealPlan.User == null)
+                //{
+                //    mealPlan.User = db.Users.Where(u => u.UserName.Equals(currentUsersName)).FirstOrDefault();
+                //    db.SaveChanges();
+                //};
+                
+                var mondayMeals = mealPlan.MealPlanData.Where(m => m.Day.Equals(day, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+                if(mondayMeals != null)
+                {
+                    if (mondayMeals.Meals != null)
+                    {
+                        mondayMeals.Meals.Add(currentMeal);
+                    }
+                    else
+                    {
+                        mondayMeals.Meals = new List<Meal>
+                        {
+                            currentMeal
+                        };
+                    }
+                }
+                else
+                {
+                   var mealPlanData = new MealPlanData
+                   {
+                       Day = day,
+                       Date = DateTime.Now,
+                       Meals = new List<Meal>{
+                           currentMeal
+                       }
+                   };
+
+
+                   mealPlan.MealPlanData.Add(mealPlanData);
+                }
             }
 
             db.SaveChanges();
@@ -111,15 +161,20 @@ namespace Backend.Controllers
         [Route("api/MealPlans/DeleteFromMealPlan")]
         [Authorize]
         [AcceptVerbs("POST")]
-        public IHttpActionResult DeletemealFromMealPlan(int mealindex)
+        public IHttpActionResult DeletemealFromMealPlan(int mealindex, string day)
         {
             var currentUsersName = RequestContext.Principal.Identity.Name;        
                        
 
             var mealPlan = db.MealPlans.Where(w => w.User.Email == currentUsersName).First();
 
-            var mealToBeDeleted = mealPlan.Meals.ToList()[mealindex];
-            mealPlan.Meals.Remove(mealToBeDeleted);
+            var mondayMeal = mealPlan.MealPlanData.Where(m => m.Day.Equals(day, StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault();
+
+            if (mondayMeal != null)
+            {
+                var mealToBeDeleted = mondayMeal.Meals.ToList()[mealindex];
+                mondayMeal.Meals.Remove(mealToBeDeleted);
+            }
             //userListOfMeals.re
                 //userListOfMeals.Add(currentMeal);
                 //mealPlan.Meals = userListOfMeals;
