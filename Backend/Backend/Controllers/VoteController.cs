@@ -76,7 +76,7 @@ namespace Backend.Controllers
             }
             else
             {
-                return BadRequest("You cannot vote more than once.");
+                return BadRequest("You cannot vote more than once");
             }
             return Ok(currentMeal.Dislikes);
         }
