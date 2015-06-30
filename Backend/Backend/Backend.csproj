@@ -289,6 +289,14 @@
     <Compile Include="Migrations\201506292336201_mealPlanItems.Designer.cs">
       <DependentUpon>201506292336201_mealPlanItems.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506300322395_Vote_Object_and_Table.cs" />
+    <Compile Include="Migrations\201506300322395_Vote_Object_and_Table.Designer.cs">
+      <DependentUpon>201506300322395_Vote_Object_and_Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506300347547_Likes_Dislikes_AddedTo_MealObject.cs" />
+    <Compile Include="Migrations\201506300347547_Likes_Dislikes_AddedTo_MealObject.Designer.cs">
+      <DependentUpon>201506300347547_Likes_Dislikes_AddedTo_MealObject.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -393,6 +401,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506292336201_mealPlanItems.resx">
       <DependentUpon>201506292336201_mealPlanItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506300322395_Vote_Object_and_Table.resx">
+      <DependentUpon>201506300322395_Vote_Object_and_Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506300347547_Likes_Dislikes_AddedTo_MealObject.resx">
+      <DependentUpon>201506300347547_Likes_Dislikes_AddedTo_MealObject.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
