@@ -7,13 +7,13 @@ using Backend.Models;
 using Backend.Migrations;
 
 
-namespace Backend.App_Start
+namespace Backend
 {
     public static class DbConfig
     {
         public static void RunDbMigrations()
         {     
-            Database.SetInitializer<ApplicationDbContext>(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
 
             using (var context = new ApplicationDbContext())
             {
