@@ -38,6 +38,7 @@ namespace Backend.Models
         public DbSet<Meal> Meals { get; set; }
         public DbSet<MealPlan> MealPlans { get; set; }
         public DbSet<MealPlanItem> MealPlanItems { get; set; }
+        public DbSet<Vote> MealVotes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

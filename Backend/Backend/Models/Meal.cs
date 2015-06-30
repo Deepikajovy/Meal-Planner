@@ -14,5 +14,6 @@ namespace Backend.Models
         public ApplicationUser CreatedBy { get; set; }
         public string ImageUrl { get; set; }
         public virtual ICollection<MealPlanItem> MealPlanItems { get; set; }
+        public virtual ICollection<Vote> Votes { get; set; }
     }
 }
