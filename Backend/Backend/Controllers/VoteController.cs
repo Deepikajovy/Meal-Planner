@@ -13,7 +13,7 @@ namespace Backend.Controllers
 {
     public class VoteController : ApiController
     {
-        ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         [Route("api/Vote/Like/{mealId}")]
         [Authorize]
@@ -22,16 +22,28 @@ namespace Backend.Controllers
         {
             var currentUsersName = RequestContext.Principal.Identity.GetUserName();
             var currentUser = db.Users.First(x => x.Email == currentUsersName);
+            var currentMeal = db.Meals.Find(mealId);
 
-            Vote userVote = new Vote()
+            var userVotes = db.MealVotes.Where(m => m.User == currentUser);
+            if (userVotes.FirstOrDefault(n => n.Meal == currentMeal) == null)
             {
-                Meal = db.Meals.Find(mealId),
-                Likes = 1,
-                User = currentUser
-            };
+                Vote userVote = new Vote()
+                {
+                    Meal = currentMeal,
+                    Likes = 1,
+                    User = currentUser
+                };
 
-            db.MealVotes.Add(userVote);
-            db.SaveChanges();
+                currentMeal.Likes += 1;
+                db.Meals.AddOrUpdate(currentMeal);
+                db.MealVotes.Add(userVote);
+
+                db.SaveChanges();
+            }
+            else
+            {
+                return Ok("Error: You cannot vote more than once.");
+            }
 
             return Ok();
         }
@@ -43,19 +55,30 @@ namespace Backend.Controllers
         {
             var currentUsersName = RequestContext.Principal.Identity.GetUserName();
             var currentUser = db.Users.First(x => x.Email == currentUsersName);
+            var currentMeal = db.Meals.Find(mealId);
 
-            Vote userVote = new Vote()
+            var userVotes = db.MealVotes.Where(m => m.User == currentUser);
+            if (userVotes.FirstOrDefault(n => n.Meal == currentMeal) == null)
             {
-                Meal = db.Meals.Find(mealId),
-                Dislikes = 1,
-                User = currentUser
-            };
+                Vote userVote = new Vote()
+                {
+                    Meal = db.Meals.Find(mealId),
+                    Dislikes = 1,
+                    User = currentUser
+                };
 
-            db.MealVotes.Add(userVote);
-            db.SaveChanges();
-
+                currentMeal.Dislikes += 1;
+                db.Meals.AddOrUpdate(currentMeal);
+                db.MealVotes.Add(userVote);
+                db.SaveChanges();
+            }
+            else
+            {
+                return Ok("Error: You cannot vote more than once.");
+            }
             return Ok();
         }
-        
-    }
+
+
+   }
 }
