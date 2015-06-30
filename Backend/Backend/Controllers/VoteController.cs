@@ -57,7 +57,7 @@ namespace Backend.Controllers
             var currentUser = db.Users.First(x => x.Email == currentUsersName);
             var currentMeal = db.Meals.Find(mealId);
 
-            IEnumerable<Vote> userVotes = db.MealVotes.Where(m => m.User == currentUser);
+            IEnumerable<Vote> userVotes = db.MealVotes.Where(m => m.User.Email == currentUser.Email);
             if (userVotes.FirstOrDefault(n => n.Meal == currentMeal) == null)
             {
                 Vote userVote = new Vote()
