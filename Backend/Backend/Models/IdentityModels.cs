@@ -37,7 +37,7 @@ namespace Backend.Models
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Meal> Meals { get; set; }
         public DbSet<MealPlan> MealPlans { get; set; }
-        public DbSet<MealPlanData> MealPlanDatas { get; set; }
+        public DbSet<MealPlanItem> MealPlanItems { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

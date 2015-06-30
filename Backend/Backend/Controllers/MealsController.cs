@@ -90,7 +90,7 @@ namespace Backend.Controllers
 
             var currentUsersName = RequestContext.Principal.Identity.Name;
             var currentUser = db.Users.Where(x => x.Email == currentUsersName).First();
-            meal.User= currentUser;
+            meal.CreatedBy= currentUser;
             db.Meals.Add(meal);
             db.SaveChanges();
 
