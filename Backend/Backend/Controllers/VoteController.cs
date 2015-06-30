@@ -18,13 +18,13 @@ namespace Backend.Controllers
         [Route("api/Vote/Like/{mealId}")]
         [Authorize]
         [AcceptVerbs("POST")]
-        public IHttpActionResult Like(int mealId)
+        public IHttpActionResult Like(int mealId) 
         {
             var currentUsersName = RequestContext.Principal.Identity.GetUserName();
             var currentUser = db.Users.First(x => x.Email == currentUsersName);
             var currentMeal = db.Meals.Find(mealId);
-
-            var userVotes = db.MealVotes.Where(m => m.User == currentUser);
+            
+            IEnumerable<Vote> userVotes = db.MealVotes.Where(m => m.User.Email == currentUser.Email);
             if (userVotes.FirstOrDefault(n => n.Meal == currentMeal) == null)
             {
                 Vote userVote = new Vote()
@@ -57,7 +57,7 @@ namespace Backend.Controllers
             var currentUser = db.Users.First(x => x.Email == currentUsersName);
             var currentMeal = db.Meals.Find(mealId);
 
-            var userVotes = db.MealVotes.Where(m => m.User == currentUser);
+            IEnumerable<Vote> userVotes = db.MealVotes.Where(m => m.User == currentUser);
             if (userVotes.FirstOrDefault(n => n.Meal == currentMeal) == null)
             {
                 Vote userVote = new Vote()
