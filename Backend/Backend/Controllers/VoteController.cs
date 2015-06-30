@@ -42,7 +42,9 @@ namespace Backend.Controllers
             }
             else
             {
-                return Ok("You cannot vote more than once.");
+
+                return BadRequest("You cannot vote more than once");
+                //("You cannot vote more than once.");
             }
 
             return Ok(currentMeal.Likes);
@@ -74,7 +76,7 @@ namespace Backend.Controllers
             }
             else
             {
-                return Ok("You cannot vote more than once.");
+                return BadRequest("You cannot vote more than once.");
             }
             return Ok(currentMeal.Dislikes);
         }
