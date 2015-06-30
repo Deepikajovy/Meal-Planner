@@ -58,11 +58,11 @@ namespace Backend
             //    appId: "",
             //    appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "440087267955-e36228lhhlbuushbmprp1padngk3cjhr.apps.googleusercontent.com",
+                ClientSecret = "vhpaYZGokJUa3LpLdssCPxgn"
+            });
         }
     }
 }
