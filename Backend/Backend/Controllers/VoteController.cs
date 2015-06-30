@@ -42,10 +42,10 @@ namespace Backend.Controllers
             }
             else
             {
-                return Ok("Error: You cannot vote more than once.");
+                return Ok("You cannot vote more than once.");
             }
 
-            return Ok();
+            return Ok(currentMeal.Likes);
         }
 
         [Route("api/Vote/Dislike/{mealId}")]
@@ -74,9 +74,9 @@ namespace Backend.Controllers
             }
             else
             {
-                return Ok("Error: You cannot vote more than once.");
+                return Ok("You cannot vote more than once.");
             }
-            return Ok();
+            return Ok(currentMeal.Dislikes);
         }
 
 
