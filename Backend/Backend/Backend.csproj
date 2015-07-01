@@ -354,8 +354,12 @@
     <Content Include="client_secret.json" />
     <None Include="Properties\PublishProfiles\roameals - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\roameals - Web Deploy.pubxml" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Icon.png" />
+    <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\controllers\LoginController.js" />

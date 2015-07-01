@@ -11,7 +11,7 @@ namespace Backend.Controllers
     {
         public ActionResult Index()
         {
-            return PartialView("AngularPartial");
+            return View();
         }
     }
 }

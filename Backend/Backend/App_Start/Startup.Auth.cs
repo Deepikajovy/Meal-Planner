@@ -57,16 +57,16 @@ namespace Backend
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
+            app.UseFacebookAuthentication(
+                appId: "1120554364625576",
+                appSecret: "f7f81029ddae2e7eb484a200411011fc");
 
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            {
-                ClientId = "440087267955-1d1hm4ua4n10paqou1jupmket3d8fblb.apps.googleusercontent.com",
-                ClientSecret = "Dmf5XmdZzyPjafjQ6v8lb7dc",
-                Scope = { "email" }
-            });
+            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //{
+            //    ClientId = "440087267955-1d1hm4ua4n10paqou1jupmket3d8fblb.apps.googleusercontent.com",
+            //    ClientSecret = "Dmf5XmdZzyPjafjQ6v8lb7dc",
+            //    Scope = { "email" }
+            //});
 
             //app.UseGooglePlusAuthentication("440087267955-b3der6ukop6e23cbj632tkoq5io7iqjh.apps.googleusercontent.com", "MWGvgzA1k1nHh0-JJ2g9sJAe");
         }

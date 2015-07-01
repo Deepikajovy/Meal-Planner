@@ -14,3 +14,5 @@
 /// <reference path="services/MealsService.js" />
 /// <reference path="services/UserAuthenticationService.js" />
 /// <reference path="services/UserService.js" />
+/// <reference path="angular-mocks.js" />
+/// <reference path="angular.min.js" />
