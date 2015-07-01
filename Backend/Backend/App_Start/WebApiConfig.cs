@@ -15,13 +15,14 @@ namespace Backend
     {
         public static void Register(HttpConfiguration config)
         {
-
-          //var cors = new EnableCorsAttribute("*", "*", "*");
-          // config.EnableCors(cors);
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
+            // Enable CORS for all origins, all headers, and all methods
+            //var cors = new EnableCorsAttribute("*", "*", "*");
+            //config.EnableCors(cors);
 
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 

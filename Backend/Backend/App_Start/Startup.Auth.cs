@@ -60,8 +60,8 @@ namespace Backend
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "440087267955-e36228lhhlbuushbmprp1padngk3cjhr.apps.googleusercontent.com",
-                ClientSecret = "vhpaYZGokJUa3LpLdssCPxgn"
+                ClientId = "440087267955-bitsmd35h6jc3lp1jmij21crkqagfiuq.apps.googleusercontent.com",
+                ClientSecret = "DN5uZteqb8NLOEl8yBOBn2cn"
             });
         }
     }
