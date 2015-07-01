@@ -65,7 +65,8 @@ namespace Backend.Controllers
             return new UserInfoViewModel
             {
                 Id = User.Identity.GetUserId(),
-                Name = User.Identity.GetUserName(),
+                Name = User.Identity.Name,
+                Email = User.Identity.GetUserName(),
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
