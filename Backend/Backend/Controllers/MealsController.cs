@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Backend.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace Backend.Controllers
 {
@@ -90,6 +91,8 @@ namespace Backend.Controllers
 
             var currentUsersName = RequestContext.Principal.Identity.Name;
             var currentUser = db.Users.Where(x => x.Email == currentUsersName).First();
+            var last  = meal.Ingredients.Last();
+            meal.Ingredients.Remove(last);
             meal.CreatedBy= currentUser;
             db.Meals.Add(meal);
             db.SaveChanges();
