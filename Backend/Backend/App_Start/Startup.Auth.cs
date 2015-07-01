@@ -7,9 +7,12 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
+using Owin.Security.Providers.GooglePlus;
 using Owin;
 using Backend.Providers;
 using Backend.Models;
+using System.Threading.Tasks;
+using Microsoft.Owin.Security;
 
 namespace Backend
 {
@@ -58,11 +61,14 @@ namespace Backend
             //    appId: "",
             //    appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "440087267955-1d1hm4ua4n10paqou1jupmket3d8fblb.apps.googleusercontent.com",
+                ClientSecret = "Dmf5XmdZzyPjafjQ6v8lb7dc",
+                Scope = { "email" }
+            });
+
+            //app.UseGooglePlusAuthentication("440087267955-b3der6ukop6e23cbj632tkoq5io7iqjh.apps.googleusercontent.com", "MWGvgzA1k1nHh0-JJ2g9sJAe");
         }
     }
 }

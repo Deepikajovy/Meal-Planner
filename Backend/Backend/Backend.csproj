@@ -142,6 +142,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Owin.Security.Providers">
+      <HintPath>..\packages\Owin.Security.Providers.1.21\lib\net45\Owin.Security.Providers.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -307,6 +310,7 @@
     <Compile Include="Models\MealPlan.cs" />
     <Compile Include="Models\MealPlanItem.cs" />
     <Compile Include="Models\Vote.cs" />
+    <Compile Include="Models\OauthComeBack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -354,6 +358,11 @@
     <Content Include="Icon.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\controllers\LoginController.js" />
+    <Content Include="Scripts\controllers\LogoutController.js" />
+    <Content Include="Scripts\controllers\MainController.js" />
+    <Content Include="Scripts\controllers\MealController.js" />
+    <Content Include="Scripts\controllers\RegisterController.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
@@ -367,6 +376,9 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\services\MealsService.js" />
+    <Content Include="Scripts\services\UserAuthenticationService.js" />
+    <Content Include="Scripts\services\UserService.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -387,6 +399,7 @@
     <Content Include="Scripts\respond.min.js.map">
       <DependentUpon>respond.min.js</DependentUpon>
     </Content>
+    <Content Include="Views\Home\AngularPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
