@@ -110,7 +110,7 @@ namespace Backend.Controllers
 
             db.SaveChanges();
 
-            return Ok();
+            return Ok(mealPlan);
         }
 
 
